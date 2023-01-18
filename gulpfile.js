@@ -27,17 +27,23 @@ const buildScript = () => {
     .pipe(browserSync.stream())
 }
 
+const buildImages = () => {
+    return gulp.src("app/images/*.png")
+    .pipe(gulp.dest("build/images/"))
+}
+
 const build = () => {
     buildHtml();
     buildScript();
     buildStyles();
+    buildImages();
 }
 
 const start = () => {
     build();
     browserSync.init({
         server: {
-            baseDir: '/'
+            baseDir: './build'
         }
     })
     gulp.watch('app/js/**/*.js', buildScript);
